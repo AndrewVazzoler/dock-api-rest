@@ -7,14 +7,14 @@ services:
     container_name: dock_api
     build: ./.docker/golang
     environment:
-      - ENV=test
-      - DB_TYPE=postgres
-      - DSN="dbname=dock sslmode=disable user=admin password=admin host=localhost"
-      - DB_TYPE_TEST="sqlite3"
-      - DSN_TEST=":memory:"
-      - DEBUG=true
-      - AUTO_MIGRATE_DB=true
-      - PORT=8080
+      ENV: test
+      DB_TYPE: postgres
+      DSN=dbname: 'dock sslmode=disable user=admin password=admin host=localhost'
+      DB_TYPE_TEST: sqlite3
+      DSN_TEST: ':memory:'
+      DEBUG: true
+      AUTO_MIGRATE_DB: true
+      PORT: 8080
     volumes:
       - .:/go/src/
     ports:

@@ -24,7 +24,7 @@ type Database struct {
 
 func (d *Database) Connect() (*gorm.DB, error) {
 	var err error
-	fmt.Println(d.Env)
+	fmt.Println(d.DsnTest)
 	if d.Env != "test" {
 		fmt.Println("aqui")
 		d.Db, err = gorm.Open(postgres.New(postgres.Config{
