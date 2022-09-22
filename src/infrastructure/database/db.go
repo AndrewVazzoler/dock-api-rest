@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/config"
+	account "github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/database/postgres/account"
 	customer "github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/database/postgres/customer"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
@@ -36,6 +37,7 @@ func (d *Database) Connect() (*gorm.DB, error) {
 	if d.AutoMigrateDB {
 		d.Db.AutoMigrate(
 			&customer.Customer{},
+			&account.Account{},
 		)
 	}
 

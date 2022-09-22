@@ -10,4 +10,5 @@ import (
 func StartRoutes(e *gin.Engine, ctx shared.Ctx, app application.AllApplications) {
 	HealthCheck(e)
 	CustomerRouter(e, ctx, app)
+	AccountRouter(e, ctx, app)
 }

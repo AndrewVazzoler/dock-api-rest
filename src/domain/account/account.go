@@ -20,12 +20,14 @@ type Account struct {
 	UpdatedAt     time.Time
 }
 
-func NewAccount(owner *customer.Customer, balance int64, agencyNumber string, accountNumber string) (*Account, error) {
+func NewAccount(owner *customer.Customer, balance int64, agencyNumber string, accountNumber string, active bool, lock bool) (*Account, error) {
 	account := Account{
 		Owner:         owner,
 		Balance:       balance,
 		AgencyNumber:  agencyNumber,
 		AccountNumber: accountNumber,
+		Lock:          lock,
+		Active:        active,
 	}
 	account.prepare()
 
@@ -55,10 +57,16 @@ func (account *Account) Validate() error {
 	return nil
 }
 
-func (account *Account) lock() {
+func (account *Account) SetLock() {
+	account.UpdatedAt = time.Now()
 	account.Lock = true
 }
 
-func (account *Account) unlock() {
+func (account *Account) SetUnlock() {
+	account.UpdatedAt = time.Now()
 	account.Lock = false
+}
+func (account *Account) Desactive() {
+	account.UpdatedAt = time.Now()
+	account.Active = false
 }
