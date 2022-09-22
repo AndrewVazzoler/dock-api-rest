@@ -9,7 +9,7 @@ import (
 type Customer struct {
 	ID        string    `gorm:"primary_key;column:id"`
 	Name      string    `gorm:"column:name"`
-	Document  string    `gorm:"column:document"`
+	Document  string    `gorm:"uniqueIndex;column:document"`
 	CreatedAt time.Time `gorm:"column:created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at"`
 }

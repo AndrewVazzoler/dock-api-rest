@@ -52,3 +52,15 @@ func (repo *CustomerRepositoryDb) FindAll(pagination *Pagination) (*Pagination, 
 
 	return pagination, nil
 }
+
+func (repo *CustomerRepositoryDb) FindByDocument(document string) (*customer.Customer, error) {
+	var customer Customer
+
+	err := repo.Db.First(&customer, "document = ?", document).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return ToEntity(&customer), nil
+}

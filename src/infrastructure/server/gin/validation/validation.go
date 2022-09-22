@@ -12,6 +12,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	enTranslations "github.com/go-playground/validator/v10/translations/en"
 	pt_translations "github.com/go-playground/validator/v10/translations/pt_BR"
+	validate_doc "github.com/paemuri/brdoc/v2"
 )
 
 type ErrorMsg struct {
@@ -20,20 +21,22 @@ type ErrorMsg struct {
 }
 
 type ErrorRoot struct {
-	Error interface{}
+	Error interface{} `json:"errors"`
 }
 
 var (
-	uni      *ut.UniversalTranslator
-	validate *validator.Validate
-	trans    ut.Translator
+	uni   *ut.UniversalTranslator
+	trans ut.Translator
 )
 
 func Init(local string) (err error) {
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+
+		v.RegisterValidation(`isCpf`, ValidateCPF)
+
 		pt_BR := brazilian_portuguese.New()
 		eng := english.New()
-		uni := ut.New(eng, eng, pt_BR)
+		uni = ut.New(eng, eng, pt_BR)
 
 		local = strings.ToLower(local)
 
@@ -47,6 +50,16 @@ func Init(local string) (err error) {
 		if !o {
 			return fmt.Errorf("uni.GetTranslator(%s) failed", local)
 		}
+
+		v.RegisterTranslation("isCpf", trans, func(ut ut.Translator) error {
+			if ut.Locale() == "pt_BR" {
+				return ut.Add("isCpf", "{0} deve ser um cpf valido!", true)
+			}
+			return ut.Add("isCpf", "{0} must be a valid cpf!", true)
+		}, func(ut ut.Translator, fe validator.FieldError) string {
+			t, _ := ut.T("isCpf", fe.Field())
+			return t
+		})
 
 		switch local {
 		case "en":
@@ -72,4 +85,8 @@ func Translate(err error) []ErrorMsg {
 	}
 
 	return nil
+}
+
+func ValidateCPF(fl validator.FieldLevel) bool {
+	return validate_doc.IsCPF(fl.Field().String())
 }

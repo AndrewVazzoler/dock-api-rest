@@ -1,7 +1,6 @@
-package postgres
+package database
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/config"
@@ -15,8 +14,6 @@ type Database struct {
 	Db            *gorm.DB
 	Dsn           string
 	DsnTest       string
-	DbType        string
-	DbTypeTest    string
 	Debug         bool
 	AutoMigrateDB bool
 	Env           string
@@ -24,9 +21,7 @@ type Database struct {
 
 func (d *Database) Connect() (*gorm.DB, error) {
 	var err error
-	fmt.Println(d.DsnTest)
 	if d.Env != "test" {
-		fmt.Println("aqui")
 		d.Db, err = gorm.Open(postgres.New(postgres.Config{
 			DSN: d.Dsn,
 		}), &gorm.Config{})
@@ -55,13 +50,11 @@ func NewDb() *Database {
 func NewDbAndConnect(cfg config.Config) *gorm.DB {
 	db := NewDb()
 
+	db.Env = cfg.Env
 	db.Dsn = cfg.DSN
-	db.DbType = cfg.DBType
-	db.DbTypeTest = cfg.DBTypeTest
 	db.DsnTest = cfg.DSNTest
 	db.Debug = cfg.Debug
 	db.AutoMigrateDB = cfg.AutoMigrateDB
-	db.Env = cfg.Env
 
 	connection, err := db.Connect()
 

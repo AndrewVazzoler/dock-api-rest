@@ -43,7 +43,7 @@ func (t *ToolsErrors) Transform(err error) *ErrorsDTO {
 	var statusCode = http.StatusInternalServerError
 	var cause interface{} = []ErrorCauseDTO{
 		{
-			Code:    ErrorCodeInternal,
+			Code:    code,
 			Message: err.Error(),
 		},
 	}

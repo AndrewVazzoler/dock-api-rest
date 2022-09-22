@@ -12,7 +12,7 @@ import (
 )
 
 type ToolsHttpInterface interface {
-	BadRequest(obj interface{})
+	BadRequest(err error, obj interface{})
 	ResponseError(err error)
 	OK(obj interface{})
 	CreateOK(obj interface{})
@@ -59,8 +59,13 @@ func (t *ToolsHttp) OK(obj interface{}) {
 	t.context.JSON(http.StatusCreated, obj)
 }
 
-func (t *ToolsHttp) BadRequest(obj interface{}) {
-	t.context.JSON(http.StatusBadRequest, obj)
+func (t *ToolsHttp) BadRequest(err error, obj interface{}) {
+	t.context.JSON(http.StatusBadRequest, &tools_error.ErrorsDTO{
+		Code:       tools_error.ErrorCodeBadRequest,
+		Message:    err.Error(),
+		Cause:      obj,
+		StatusCode: http.StatusBadRequest,
+	})
 }
 
 func (t *ToolsHttp) ResponseError(err error) {

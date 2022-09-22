@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"fmt"
+
 	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
 	protocols "github.com/AndrewVazzoler/dock-api-rest/src/domain/_protocols"
 
@@ -29,6 +31,12 @@ func NewCreateRequestHandler(ctx shared.Ctx, repo *protocols.AllRepositories) Cr
 }
 
 func (h createCustomerRequestHandler) Handle(req CreateCustomerRequest) (*customer.Customer, error) {
+	_, err := h.repo.FindByDocument(req.Document)
+
+	if err == nil {
+		return nil, fmt.Errorf("exist a customer with document %s", req.Document)
+	}
+
 	newCustomer, err := customer.NewCustomer(req.Name, req.Document)
 
 	if err != nil {
@@ -40,5 +48,6 @@ func (h createCustomerRequestHandler) Handle(req CreateCustomerRequest) (*custom
 	if err != nil {
 		return nil, err
 	}
+
 	return result, nil
 }
