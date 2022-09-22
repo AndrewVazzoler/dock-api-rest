@@ -7,5 +7,5 @@ type CustomerRepository interface {
 	FindByID(id string) (*Customer, error)
 	FindByDocument(document string) (*Customer, error)
 	FindAll(pagination *shared.Pagination[[]*Customer]) (*shared.Pagination[[]*Customer], error)
-	// Delete(id string) error
+	Delete(id string) error
 }

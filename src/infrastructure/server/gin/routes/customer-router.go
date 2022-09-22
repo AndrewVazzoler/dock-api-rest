@@ -12,5 +12,6 @@ func CustomerRouter(r *gin.Engine, ctx shared.Ctx, app application.AllApplicatio
 	customers := r.Group("/customers")
 	{
 		customers.POST("", controller.CreateCustomer(ctx, app))
+		customers.DELETE(":id", controller.DeleteCustomer(ctx, app))
 	}
 }

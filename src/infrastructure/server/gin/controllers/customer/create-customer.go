@@ -11,14 +11,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AccountRequest struct {
+type CreateCustomerRequest struct {
 	Name     string `binding:"required" json:"name"`
 	Document string `binding:"required,isCpf" json:"document"`
 }
 
 func CreateCustomer(ctx shared.Ctx, app application.AllApplications) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var model AccountRequest
+		var model CreateCustomerRequest
 
 		errBind := utils.BindBodyFromPostRequest(c, &model)
 

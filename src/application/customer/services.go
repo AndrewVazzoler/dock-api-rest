@@ -11,6 +11,7 @@ type Queries struct{}
 // Commands Contains all available command handlers of this app
 type Commands struct {
 	CreateCustomerHandler commands.CreateCustomerRequestHandler
+	DeleteCustomerHandler commands.DeleteCustomerRequestHandler
 }
 
 type CustomerServices struct {
@@ -24,6 +25,7 @@ func NewServices(
 		Queries: Queries{},
 		Commands: Commands{
 			CreateCustomerHandler: commands.NewCreateRequestHandler(ctx, repo),
+			DeleteCustomerHandler: commands.NewDeleteRequestHandler(ctx, repo),
 		},
 	}
 }

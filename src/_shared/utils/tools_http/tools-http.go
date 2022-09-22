@@ -15,6 +15,7 @@ type ToolsHttpInterface interface {
 	BadRequest(err error, obj interface{})
 	ResponseError(err error)
 	OK(obj interface{})
+	DeleteOK()
 	CreateOK(obj interface{})
 	SetServerContext(context *gin.Context)
 	BindBodyFromPostRequest(obj interface{}) *tools_error.ErrorsDTO
@@ -57,6 +58,10 @@ func (t *ToolsHttp) BindBodyFromPostRequest(obj interface{}) *tools_error.Errors
 
 func (t *ToolsHttp) OK(obj interface{}) {
 	t.context.JSON(http.StatusCreated, obj)
+}
+
+func (t *ToolsHttp) DeleteOK() {
+	t.context.AbortWithStatus(http.StatusNoContent)
 }
 
 func (t *ToolsHttp) BadRequest(err error, obj interface{}) {

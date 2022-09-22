@@ -64,3 +64,15 @@ func (repo *CustomerRepositoryDb) FindByDocument(document string) (*customer.Cus
 
 	return ToEntity(&customer), nil
 }
+
+func (repo *CustomerRepositoryDb) Delete(id string) error {
+	var customer Customer
+
+	err := repo.Db.Delete(&customer, "id = ?", id).Error
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
