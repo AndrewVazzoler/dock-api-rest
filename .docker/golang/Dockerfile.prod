@@ -5,7 +5,7 @@ COPY . .
 
 ENV CGO_CFLAGS="-g -O2 -Wno-return-local-addr"
 
-RUN apt-get update && apt-get install build-essential librdkafka-dev -y
-RUN go build -o /go/bin/gateway cmd/main.go 
+RUN apt-get update && apt-get install build-essential -y
+RUN go build -o /go/bin/dock main.go 
 
-CMD ["/go/bin/gateway"]
+CMD ["/go/bin/dock"]

@@ -2,15 +2,34 @@
 version: "3.8"
 
 services:
-  api:
+  api-dev:
     platform: linux/arm64
-    container_name: dock_api
+    container_name: dock_api_dev
     build: ./.docker/golang
     environment:
       ENV: test
       DSN=dbname: 'dock sslmode=disable user=admin password=admin host=localhost'
       DSN_TEST: ':memory:'
       DEBUG: true
+      AUTO_MIGRATE_DB: true
+      PORT: 8080
+    volumes:
+      - .:/go/src/
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+  api-prod:
+    platform: linux/arm64
+    container_name: dock_api_prod
+    build:
+      context: .
+      dockerfile: ./.docker/golang/Dockerfile.prod
+    environment:
+      ENV: production
+      DSN=dbname: 'dock sslmode=disable user=admin password=admin host=postgres'
+      DSN_TEST: ':memory:'
+      DEBUG: false
       AUTO_MIGRATE_DB: true
       PORT: 8080
     volumes:
