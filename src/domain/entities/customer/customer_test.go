@@ -3,8 +3,7 @@ package customer_test
 import (
 	"testing"
 
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/customer"
-
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/customer"
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,17 +1,21 @@
 package account
 
 import (
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
 	"github.com/AndrewVazzoler/dock-api-rest/src/application/account/commands"
-	protocols "github.com/AndrewVazzoler/dock-api-rest/src/domain/_protocols"
+	"github.com/AndrewVazzoler/dock-api-rest/src/application/account/queries"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/protocols"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 )
 
-type Queries struct{}
+type Queries struct {
+	GetBalanceAccountHandler queries.GetBalanceAccountRequestHandler
+}
 
 // Commands Contains all available command handlers of this app
 type Commands struct {
 	OpenAccountHandler  commands.OpenAccountRequestHandler
 	CloseAccountHandler commands.CloseAccountRequestHandler
+	DepositHandler      commands.DepositRequestHandler
 }
 
 type AccountServices struct {
@@ -22,10 +26,13 @@ type AccountServices struct {
 func NewServices(
 	ctx shared.Ctx, repo *protocols.AllRepositories) AccountServices {
 	return AccountServices{
-		Queries: Queries{},
+		Queries: Queries{
+			GetBalanceAccountHandler: queries.NewGetBalanceAccountRequestHandler(ctx, repo),
+		},
 		Commands: Commands{
 			OpenAccountHandler:  commands.NewAccountRequestHandler(ctx, repo),
 			CloseAccountHandler: commands.NewCloseAccountRequestHandler(ctx, repo),
+			DepositHandler:      commands.NewDepositRequestHandler(ctx, repo),
 		},
 	}
 }

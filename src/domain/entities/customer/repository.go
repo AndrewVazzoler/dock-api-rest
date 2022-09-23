@@ -1,6 +1,6 @@
 package customer
 
-import shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
+import "github.com/AndrewVazzoler/dock-api-rest/src/shared"
 
 type CustomerRepository interface {
 	Create(customer *Customer) (*Customer, error)

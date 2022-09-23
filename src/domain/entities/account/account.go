@@ -3,26 +3,25 @@ package account
 import (
 	"time"
 
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/customer"
 	"github.com/go-playground/validator/v10"
 	uuid "github.com/satori/go.uuid"
 )
 
 type Account struct {
-	ID            string             `validate:"uuid"`
-	Owner         *customer.Customer `validate:"required"`
-	Balance       int64              `validate:"gte=0"`
-	AgencyNumber  string             `validate:"required"`
-	AccountNumber string             `validate:"required"`
+	ID            string  `validate:"uuid"`
+	OwnerID       string  `validate:"required"`
+	Balance       float64 `validate:"gte=0"`
+	AgencyNumber  string  `validate:"required"`
+	AccountNumber string  `validate:"required"`
 	Active        bool
 	Lock          bool
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
 }
 
-func NewAccount(owner *customer.Customer, balance int64, agencyNumber string, accountNumber string, active bool, lock bool) (*Account, error) {
+func NewAccount(ownerID string, balance float64, agencyNumber string, accountNumber string, active bool, lock bool) (*Account, error) {
 	account := Account{
-		Owner:         owner,
+		OwnerID:       ownerID,
 		Balance:       balance,
 		AgencyNumber:  agencyNumber,
 		AccountNumber: accountNumber,
@@ -69,4 +68,8 @@ func (account *Account) SetUnlock() {
 func (account *Account) Desactive() {
 	account.UpdatedAt = time.Now()
 	account.Active = false
+}
+func (account *Account) IncrementBalance(amount float64) {
+	account.Balance = account.Balance + amount
+	account.UpdatedAt = time.Now()
 }

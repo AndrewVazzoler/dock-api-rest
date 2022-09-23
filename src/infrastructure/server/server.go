@@ -1,10 +1,10 @@
 package server
 
 import (
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
 	"github.com/AndrewVazzoler/dock-api-rest/src/application"
 	"github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/server/gin/middleware"
 	"github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/server/gin/routes"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 
 	"github.com/gin-gonic/gin"
 )

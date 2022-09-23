@@ -1,4 +1,4 @@
-package commands
+package queries
 
 import (
 	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/account"
@@ -8,28 +8,31 @@ import (
 )
 
 type (
-	CloseAccountRequest struct {
+	GetBalanceAccountRequest struct {
 		Document string
 	}
-	CloseAccountRequestHandler interface {
-		Handle(command CloseAccountRequest) (*account.Account, error)
+	GetBalanceAccountResponse struct {
+		Balance float64
 	}
-	closeAccountRequestHandler struct {
+	GetBalanceAccountRequestHandler interface {
+		Handle(command GetBalanceAccountRequest) (*GetBalanceAccountResponse, error)
+	}
+	getBalanceAccountRequestHandler struct {
 		ctx          shared.Ctx
 		repo         account.AccountRepository
 		repoCustomer customer.CustomerRepository
 	}
 )
 
-func NewCloseAccountRequestHandler(ctx shared.Ctx, repo *protocols.AllRepositories) CloseAccountRequestHandler {
-	return &closeAccountRequestHandler{
+func NewGetBalanceAccountRequestHandler(ctx shared.Ctx, repo *protocols.AllRepositories) GetBalanceAccountRequestHandler {
+	return &getBalanceAccountRequestHandler{
 		ctx:          ctx,
 		repo:         repo.AccountRepository,
 		repoCustomer: repo.CustomerRepository,
 	}
 }
 
-func (h closeAccountRequestHandler) Handle(req CloseAccountRequest) (*account.Account, error) {
+func (h getBalanceAccountRequestHandler) Handle(req GetBalanceAccountRequest) (*GetBalanceAccountResponse, error) {
 	customer, err := h.repoCustomer.FindByDocument(req.Document)
 
 	if err != nil {
@@ -42,13 +45,7 @@ func (h closeAccountRequestHandler) Handle(req CloseAccountRequest) (*account.Ac
 		return nil, err
 	}
 
-	result.Desactive()
-
-	result, err = h.repo.Update(result)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return result, nil
+	return &GetBalanceAccountResponse{
+		Balance: result.Balance,
+	}, nil
 }

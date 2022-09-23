@@ -1,6 +1,6 @@
 package account
 
-import shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
+import "github.com/AndrewVazzoler/dock-api-rest/src/shared"
 
 type AccountRepository interface {
 	Create(account *Account) (*Account, error)

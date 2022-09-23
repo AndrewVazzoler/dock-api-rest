@@ -3,11 +3,10 @@ package commands
 import (
 	"strconv"
 
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
-	protocols "github.com/AndrewVazzoler/dock-api-rest/src/domain/_protocols"
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/customer"
-
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/account"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/account"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/protocols"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 )
 
 type (
@@ -53,7 +52,7 @@ func (h openAccountRequestHandler) Handle(req OpenAccountRequest) (*account.Acco
 		return nil, err
 	}
 
-	newAccount, err := account.NewAccount(customer, 0, "001", vq, true, false)
+	newAccount, err := account.NewAccount(customer.ID, 0, "001", vq, true, false)
 
 	if err != nil {
 		return nil, err

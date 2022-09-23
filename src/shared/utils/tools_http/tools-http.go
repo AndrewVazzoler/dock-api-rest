@@ -5,7 +5,7 @@ import (
 
 	"net/http"
 
-	"github.com/AndrewVazzoler/dock-api-rest/src/_shared/utils/tools_error"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared/utils/tools_error"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"

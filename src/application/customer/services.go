@@ -1,9 +1,9 @@
 package customer
 
 import (
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
 	"github.com/AndrewVazzoler/dock-api-rest/src/application/customer/commands"
-	protocols "github.com/AndrewVazzoler/dock-api-rest/src/domain/_protocols"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/protocols"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 )
 
 type Queries struct{}

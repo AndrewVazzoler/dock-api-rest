@@ -1,11 +1,10 @@
 package application
 
 import (
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
-	protocols "github.com/AndrewVazzoler/dock-api-rest/src/domain/_protocols"
-
 	"github.com/AndrewVazzoler/dock-api-rest/src/application/account"
 	"github.com/AndrewVazzoler/dock-api-rest/src/application/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/protocols"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 )
 
 type AllApplications struct {

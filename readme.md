@@ -6,13 +6,13 @@ Nossa próxima missão é construir uma nova conta digital Dock para nossos clie
 # Requisitos
 
 - Deve ser possível criar e remover **portadores**
-  - Um **portador** deve conter apenas seu _nome completo_ e _CPF_
-  - O _CPF_ deve ser válido e único no cadastro de **portadores**
+  - Um **portador** deve conter apenas seu _nome completo_ e _CPF_ - OK
+  - O _CPF_ deve ser válido e único no cadastro de **portadores** - OK
 - As **contas digital Dock** devem conter as seguintes funcionalidades:
-  - A conta deve ser criada utilizando o _CPF_ do **portador**
+  - A conta deve ser criada utilizando o _CPF_ do **portador** - OK
   - Uma conta deve ter seu _saldo_, _número_ e _agência_ disponíveis para consulta
   - Necessário ter funcionalidade para fazer a _consulta de extrato_ da conta _por período_
-  - Um **portador** pode fechar a **conta digital Dock** a qualquer instante
+  - Um **portador** pode fechar a **conta digital Dock** a qualquer instante - OK
   - Executar as operações de _saque_ e _depósito_
     - _Depósito_ é liberado para todas as _contas ativas_ e _desbloqueadas_
     - _Saque_ é permitido para todas as _contas ativas_ e _desbloqueadas_ desde que haja _saldo disponível_ e não ultrapasse o limite diário de _2 mil reais_

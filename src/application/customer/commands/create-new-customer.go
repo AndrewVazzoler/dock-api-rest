@@ -3,10 +3,9 @@ package commands
 import (
 	"fmt"
 
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
-	protocols "github.com/AndrewVazzoler/dock-api-rest/src/domain/_protocols"
-
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/protocols"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 )
 
 type (

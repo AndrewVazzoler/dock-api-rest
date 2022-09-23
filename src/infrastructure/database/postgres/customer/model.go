@@ -3,7 +3,7 @@ package customer
 import (
 	"time"
 
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/customer"
 )
 
 type Customer struct {

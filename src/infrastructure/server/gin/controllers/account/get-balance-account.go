@@ -4,19 +4,23 @@ import (
 	"errors"
 
 	"github.com/AndrewVazzoler/dock-api-rest/src/application"
-	"github.com/AndrewVazzoler/dock-api-rest/src/application/account/commands"
+	"github.com/AndrewVazzoler/dock-api-rest/src/application/account/queries"
 	"github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/server/gin/utils"
 	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 	"github.com/gin-gonic/gin"
 )
 
-type CloseAccountRequest struct {
+type GetBalanceAccountRequest struct {
 	Document string `binding:"required,isCpf" json:"document"`
 }
 
-func CloseAccount(ctx shared.Ctx, app application.AllApplications) gin.HandlerFunc {
+type GetBalanceAccountResponse struct {
+	Balance float64 `json:"balance"`
+}
+
+func GetBalanceAccount(ctx shared.Ctx, app application.AllApplications) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var model CloseAccountRequest
+		var model GetBalanceAccountRequest
 
 		errBind := utils.BindBodyFromPostRequest(c, &model)
 
@@ -25,8 +29,8 @@ func CloseAccount(ctx shared.Ctx, app application.AllApplications) gin.HandlerFu
 			return
 		}
 
-		_, err := app.AccountServices.Commands.CloseAccountHandler.Handle(
-			commands.CloseAccountRequest{
+		result, err := app.AccountServices.Queries.GetBalanceAccountHandler.Handle(
+			queries.GetBalanceAccountRequest{
 				Document: model.Document,
 			},
 		)
@@ -36,6 +40,8 @@ func CloseAccount(ctx shared.Ctx, app application.AllApplications) gin.HandlerFu
 			return
 		}
 
-		ctx.Http.DeleteOK()
+		var response GetBalanceAccountResponse
+		ctx.ToolsDTO.Map(&response, result)
+		ctx.Http.OK(response)
 	}
 }

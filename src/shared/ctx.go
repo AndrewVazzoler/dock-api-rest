@@ -1,9 +1,9 @@
 package shared
 
 import (
-	"github.com/AndrewVazzoler/dock-api-rest/src/_shared/utils/tools_dto"
-	"github.com/AndrewVazzoler/dock-api-rest/src/_shared/utils/tools_error"
-	"github.com/AndrewVazzoler/dock-api-rest/src/_shared/utils/tools_http"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared/utils/tools_dto"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared/utils/tools_error"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared/utils/tools_http"
 )
 
 type Ctx struct {

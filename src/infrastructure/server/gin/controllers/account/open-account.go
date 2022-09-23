@@ -4,10 +4,10 @@ import (
 	"errors"
 	"time"
 
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
 	"github.com/AndrewVazzoler/dock-api-rest/src/application"
 	"github.com/AndrewVazzoler/dock-api-rest/src/application/account/commands"
 	"github.com/AndrewVazzoler/dock-api-rest/src/infrastructure/server/gin/utils"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +16,7 @@ type OpenAccountRequest struct {
 }
 type OpenAccountResponse struct {
 	ID            string    `json:"id"`
-	Balance       int64     `json:"balance"`
+	Balance       float64   `json:"balance"`
 	AgencyNumber  string    `json:"agency_number"`
 	AccountNumber string    `json:"account_number"`
 	Active        bool      `json:"active"`

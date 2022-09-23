@@ -1,8 +1,8 @@
 package customer
 
 import (
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 
 	"gorm.io/gorm"
 )

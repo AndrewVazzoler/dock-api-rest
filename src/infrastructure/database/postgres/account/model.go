@@ -1,18 +1,17 @@
 package account
 
 import (
-	"fmt"
 	"time"
 
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/account"
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/customer"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/account"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/customer"
 )
 
 type Account struct {
 	ID            string            `gorm:"primary_key;column:id"`
 	OwnerID       string            `gorm:"uniqueIndex;column:owner_id"`
 	Owner         customer.Customer `gorm:"foreignkey:OwnerID"`
-	Balance       int64             `gorm:"column:balance"`
+	Balance       float64           `gorm:"column:balance"`
 	AgencyNumber  string            `gorm:"column:agency_number"`
 	AccountNumber string            `gorm:"column:account_number"`
 	Active        bool              `gorm:"column:active"`
@@ -24,7 +23,7 @@ type Account struct {
 func ToModel(c *account.Account) *Account {
 	return &Account{
 		ID:            c.ID,
-		OwnerID:       c.Owner.ID,
+		OwnerID:       c.OwnerID,
 		Balance:       c.Balance,
 		AgencyNumber:  c.AgencyNumber,
 		AccountNumber: c.AccountNumber,
@@ -36,10 +35,9 @@ func ToModel(c *account.Account) *Account {
 }
 
 func ToEntity(c *Account) *account.Account {
-	fmt.Println(c.Owner)
 	return &account.Account{
 		ID:            c.ID,
-		Owner:         &c.Owner,
+		OwnerID:       c.OwnerID,
 		Balance:       c.Balance,
 		AgencyNumber:  c.AgencyNumber,
 		AccountNumber: c.AccountNumber,

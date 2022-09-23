@@ -3,8 +3,8 @@ package account
 import (
 	"fmt"
 
-	shared "github.com/AndrewVazzoler/dock-api-rest/src/_shared"
-	"github.com/AndrewVazzoler/dock-api-rest/src/domain/account"
+	"github.com/AndrewVazzoler/dock-api-rest/src/domain/entities/account"
+	"github.com/AndrewVazzoler/dock-api-rest/src/shared"
 
 	"gorm.io/gorm"
 )

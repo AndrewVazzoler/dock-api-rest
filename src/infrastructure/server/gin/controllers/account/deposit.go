@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"time"
 
 	"github.com/AndrewVazzoler/dock-api-rest/src/application"
 	"github.com/AndrewVazzoler/dock-api-rest/src/application/account/commands"
@@ -10,13 +11,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CloseAccountRequest struct {
-	Document string `binding:"required,isCpf" json:"document"`
+type DepositRequest struct {
+	Document string  `binding:"required,isCpf" json:"document"`
+	Amount   float64 `binding:"required,gt=0" json:"amount"`
 }
 
-func CloseAccount(ctx shared.Ctx, app application.AllApplications) gin.HandlerFunc {
+type DepositResponse struct {
+	TransactionID string    `json:"transaction_id"`
+	CreatedAt     time.Time `json:"created_at"`
+}
+
+func Deposit(ctx shared.Ctx, app application.AllApplications) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var model CloseAccountRequest
+		var model DepositRequest
 
 		errBind := utils.BindBodyFromPostRequest(c, &model)
 
@@ -25,9 +32,10 @@ func CloseAccount(ctx shared.Ctx, app application.AllApplications) gin.HandlerFu
 			return
 		}
 
-		_, err := app.AccountServices.Commands.CloseAccountHandler.Handle(
-			commands.CloseAccountRequest{
+		result, err := app.AccountServices.Commands.DepositHandler.Handle(
+			commands.DepositRequest{
 				Document: model.Document,
+				Amount:   model.Amount,
 			},
 		)
 
@@ -36,6 +44,8 @@ func CloseAccount(ctx shared.Ctx, app application.AllApplications) gin.HandlerFu
 			return
 		}
 
-		ctx.Http.DeleteOK()
+		var response DepositResponse
+		ctx.ToolsDTO.Map(&response, result)
+		ctx.Http.CreateOK(response)
 	}
 }
